@@ -9,38 +9,40 @@ function sumArr(numbers) {
 	return total;
 }
 
-var x = sumArr([16, 24, 31]);
-console.log(x);
+
 console.assert(sumArr([16, 24, 31]) === 71);
 
 
 // exercise 2
-var str = 'Chinchillas love to chill';
+var phrase = 'Chinchillas love to chill';
 
 function yell (str) {
-	var res = str.toUpperCase();
-	console.log(res + '!');
+	var res = str.toUpperCase() + '!';
+	return res;
 }
 
-yell(str);
+console.assert(yell(phrase) === 'CHINCHILLAS LOVE TO CHILL!');
 
 function yell10 (str) {
-	var total = 0;
-	for (var i = 0; i < str.length; i++) {
-	total += str.length;
-	}
-	return total/str.length;
-}
-// var str = ('Chinchillas' + 'love' + 'to' + 'chill');
-var x = str('Chinchillas' + 'love' + 'to' + 'chill');
-console.log(x);
+	var arr = [];
+	var yelled = yell(str);
 
+	for (var i = 0; i < 10; i++) {
+		arr.push(yelled);
+	}
+
+	return arr;
+}
+
+console.assert(yell10(phrase).length === 10);
+console.assert(yell10(phrase)[0] === 'CHINCHILLAS LOVE TO CHILL!');
+console.assert(yell10(phrase)[9] === 'CHINCHILLAS LOVE TO CHILL!');
 
 
 // exercise 3
 
 function max (a, b) {
-	if ( a !== 'lala' || b !== 'lala') {
+	if (typeof a !== 'number' || typeof b !== 'number') {
 		return NaN;
 	} else if (a > b) {
 		return a;
@@ -49,8 +51,7 @@ function max (a, b) {
 	}
 }
 
-console.log(max(12, 6));
-console.assert( max('lala', true) === NaN);
+console.assert(typeof max('lala', {}) === 'number');
 console.assert(max(12, 6) === 12);
 console.assert(max(6, 12) === 12);
 
@@ -61,51 +62,50 @@ var a = ['a', 'b', 'c'];
 var b = ['m', 'k'];
 
 function longest(a, b) {
-	for(i = 0; i < a.length; i++) {
+	if (a.length < b.length) {
+		return b;
+	} else {
 		return a;
-		} for(j = 0; j < b.length; j++) {
-			return b;
-		} if(b[j]===a[i]){
-				return NaN;
-			}
+	}
 }
-console.log(longest(a, b));
-console.assert(longest(a, b) === ['a', 'b', 'c']);
+
+console.assert(longest(a, b) === a);
+console.assert(longest('one', 'banana') === 'banana');
 
 
 
+function findLongestWord(sentence) {
+	var words = sentence.split(' ');
+	var previousLongestWord = words[1];
 
-function findLongestWord(str) {
-	var maxLength = str;
-	for (var i = 0; i < str.length; i++) {
-		if (str.length > maxLength) {
-			maxLength = str[i].length;
+	for (var i = 1; i < words.length; i++) {
+		if (words[i].length > previousLongestWord.length) {
+			previousLongestWord = words[i];
 		}
 	}
-	
+
+	return previousLongestWord;
 }
-var str = ['sloths' + ',' + 'are' + ',' + 'friendly'];
-console.log(maxLength);
-console.assert(findLongestWord(str) === maxLength);
+
+var str = 'sloths are friendly and really lazy indiviudals';
+
+console.assert(findLongestWord(str) === 'individuals');
 
 // exercise 5
 
-function isVowel(str) { 
-	if(x === 'a' || x === 'e' || x === 'i' || x === 'o' || x === 'u') {
-		
-	}
-	else if ( str === x) {
-
-		console.log(str + 'true');
-	}else {
-		console.log(str +'false');
-	}	
+function isVowel(char){
+    if( char === 'a' || char === 'e' || char === 'i' || char === 'o' || char === 'u') {
+			return true;
+	} else {
+			return false;
+		}	
 	
 }
 
-var str = ['a'];
-console.log(str);
-console.assert(isVowel(str, true) === '');
+console.log(isVowel('c'));
+console.assert(isVowel('a') === true);
+console.assert(isVowel('b') === false);
+
 
 // exercise 6
 function reverse (str) {
@@ -116,10 +116,37 @@ function reverse (str) {
 	return result;
 }
 
-var input = 'hey whats up';
+var input = 'nifty';
 var reversed = reverse(input);
 
 console.log(reversed);
-
 console.log(reverse('hey' + 'ello' + '!'));
+
+console.assert (reverse('nifty') === 'ytfin');
+console.assert (reverse('hey' + 'ello' + '!') === '!olleyeh');
+
+// exercise 7
+// a female cat, neutered, either white or tan;
+// a male cat, neutered, any color but white
+// any cat as long as it’s black.
+function adopt (gender, neutered, color) {
+	if (gender === 'f' && neutered === true && (color === 'white' || color === 'tan')) {
+		return true;
+	} else if (gender === 'm' && neutered === true && color !== 'white') {
+		return true;
+	} else if (color === 'black') {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+console.assert(adopt('m', true, 'black') === true);
+console.assert(adopt('m', true, 'white') === false);
+console.assert(adopt('m', false, 'tan') === false);
+console.assert(adopt('f', true, 'white') === true);
+console.assert(adopt('f', true, 'tan') === true);
+console.assert(adopt('f', true, 'black') === true);
+
+
 
